@@ -7,6 +7,7 @@ Guía para instalar Docker Engine directamente en tu distro Ubuntu de WSL2, **si
 ## Tabla de contenidos
 
 - [Requisitos previos](#requisitos-previos)
+- [0. Instalar WSL2 y Ubuntu](#0-instalar-wsl2-y-ubuntu)
 - [1. Desactivar Docker Desktop en la distro](#1-desactivar-docker-desktop-en-la-distro)
 - [2. Instalar dependencias](#2-instalar-dependencias)
 - [3. Habilitar systemd](#3-habilitar-systemd)
@@ -20,9 +21,42 @@ Guía para instalar Docker Engine directamente en tu distro Ubuntu de WSL2, **si
 
 ## Requisitos previos
 
-- Windows 10/11 con **WSL2** habilitado.
-- Distro **Ubuntu** instalada desde la Microsoft Store.
-- *(Opcional)* Configuración en Docker Desktop instalado previamente.
+- Windows 10 (build 19041+) o Windows 11.
+
+---
+
+## 0. Instalar WSL2 y Ubuntu
+
+### Desde PowerShell (como administrador):
+
+```powershell
+wsl --install -d Ubuntu
+```
+
+Esto habilita WSL2, descarga el kernel de Linux e instala Ubuntu en un solo paso.
+
+Reinicia el PC cuando te lo pida. Al volver, se abrirá Ubuntu para que crees tu usuario y contraseña.
+
+### Verificar que estás en WSL2
+
+```powershell
+wsl --list --verbose
+```
+
+Deberías ver algo como:
+
+```
+  NAME      STATE           VERSION
+* Ubuntu    Running         2
+```
+
+Si aparece `VERSION 1`, actualiza con:
+
+```powershell
+wsl --set-version Ubuntu 2
+```
+
+> Más detalles en la [documentación oficial de WSL](https://learn.microsoft.com/es-es/windows/wsl/install).
 
 ---
 
@@ -38,7 +72,7 @@ Si tenías Docker Desktop instalado, desactiva la integración con Ubuntu para n
 
 ## 2. Instalar dependencias
 
-Abre Ubuntu en WSL y ejecuta:
+Abre Ubuntu en WSL como root (`wsl -u root`) y ejecuta:
 
 ```bash
 sudo apt update
